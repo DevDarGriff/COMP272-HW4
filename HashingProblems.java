@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Devon Griffith / COMP 272 ***
  *
  * This HashingProblems object contains three methods / problems that you must
  * complete utilize the HashMap object within the Java's Collection Framework Library.
@@ -10,10 +10,10 @@
  *  - twoSums
  */
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
+//import java.util.*;                       //used for Iterator utilization in odd()
 
 class HashingProblems {
 
@@ -40,9 +40,28 @@ class HashingProblems {
          * returning 0.0 is NOT correct, as that is not the average value. Whereas
          * returning 0.0/0.0 IS correct (which would return a non-number).
          */
+             
+         double sum = 0;                                    //sum of keys
+         int count = 0;                                     //count of keys in sum
+         
+        for (int key : array) {                             //for each key in array
+            if (map.containsKey(key)) {                     //if map contains key
+                sum += map.get(key);                        //sum of keys
+                count++;
+            }
+        }
 
-         return 0.0 / 0.0;
-  }
+        if (count == 0) {                                   //no common values found
+            return 0.0 / 0.0;
+        } else {
+            return sum / count;                             //common values found, return average
+        }
+}
+        
+         
+
+         
+  
 
 
     /*
@@ -61,8 +80,24 @@ class HashingProblems {
        *
        * Hint: Consider iterating over the HashMap using the keySet method.
        */
-
-
+        
+/*      //with Iterator utilization
+       Iterator<Integer> itr = map.keySet().iterator();
+        while (itr.hasNext()) {
+            int key = itr.next();
+            if (key % 2 == 1) {                     //if key value is odd
+                result.add(map.get(key));           //get key's val & add to result
+            } else {
+                //do nothing
+            }
+        }
+*/
+        //without Iterator utilization
+        for (int key : map.keySet()) {
+            if (key % 2 == 1) {
+                result.add(map.get(key));
+            }
+        }
       return result;
   }
 
@@ -108,9 +143,31 @@ class HashingProblems {
 
       /*
        * ADD YOUR CODE HERE
+       * 
+       k = 4
+       (5 - 1) = k      -> (a - b) = k -> (a - k) = b
+       (8 - 4) = k
+       (9 - 5) = k
+       k appears 3 times.
+       * 
        */
+    
+    //initialize HashSet to hold ints from numbers array   
+    HashSet<Integer> set = new HashSet<>();
+    int count = 0;
+    
+    //populate HashSet based on numbers array
+    for (int num : numbers) {                              //for each num in numbers
+        set.add(num);                                      //add it to the set
+    }
 
-      return -1;
+    for (int num : numbers) {                               //for each num in numbers
+        if (set.contains(num - k)) {                        //if set contains num - k
+            count++;                                        //increment count
+        }
+    }
+
+      return count;
   }
 
 } /* end class HashingProblems */
